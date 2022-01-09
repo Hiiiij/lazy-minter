@@ -58,7 +58,8 @@ const Minter = (props) => {
 
   const onMintPressed = async () => {
     setStatus('getting random nft')
-    const response = await axios.get('http://localhost:8000/getRandomNFT')
+    const BACKEND_URL = process.env.NODE_ENV === 'production' ? 'heroku url' : 'http://localhost:8000'
+    const response = await axios.get(`${BACKEND_URL}/getRandomNFT`)
     console.log(response)
     const { secure_url } = response.data
 
