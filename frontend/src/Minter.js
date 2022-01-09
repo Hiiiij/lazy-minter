@@ -58,7 +58,7 @@ const Minter = (props) => {
 
   const onMintPressed = async () => {
     setStatus('getting random nft')
-    const BACKEND_URL = process.env.NODE_ENV === 'production' ? 'heroku url' : 'http://localhost:8000'
+    const BACKEND_URL = process.env.NODE_ENV === 'production' ? 'https://lazyminter.herokuapp.com' : 'http://localhost:8000'
     const response = await axios.get(`${BACKEND_URL}/getRandomNFT`)
     console.log(response)
     const { secure_url } = response.data
