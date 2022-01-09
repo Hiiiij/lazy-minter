@@ -4,7 +4,6 @@ const app = express()
 const port = 8000
 const cors = require('cors')
 const { editionSize } = require('./input/config.js')
-const fs = require('fs')
 const cloudinary = require('cloudinary').v2;
 
 // min and max included 
@@ -27,7 +26,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/getRandomNFT', (req, res) => {
-  const randomNumber = randomIntFromInterval(1, 10)
+  const randomNumber = randomIntFromInterval(1, editionSize)
   cloudinary.uploader.upload(`output/${randomNumber}.png`, function (error, result) {
     if (error) {
       res.status(500).send(error)
