@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const app = express()
-const port = process.env.PORT
+const port = process.env.PORT || 8000
 const cors = require('cors')
 const { editionSize } = require('./input/config.js')
 const cloudinary = require('cloudinary').v2;
