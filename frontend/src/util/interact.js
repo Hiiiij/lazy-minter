@@ -13,7 +13,7 @@ export const connectWallet = async () => {
         method: "eth_requestAccounts",
       });
       const obj = {
-        status: "👆🏽 Write a message in the text-field above.",
+        status: "",
         address: addressArray[0],
       };
       return obj;
@@ -51,7 +51,7 @@ export const getCurrentWalletConnected = async () => {
       if (addressArray.length > 0) {
         return {
           address: addressArray[0],
-          status: "👆🏽 Write a message in the text-field above.",
+          status: "",
         };
       } else {
         return {
@@ -88,19 +88,20 @@ async function loadContract() {
   return new web3.eth.Contract(contractABI, contractAddress);
 }
 
-export const mintNFT = async (url, name, description) => {
-  if (url.trim() == "" || name.trim() == "" || description.trim() == "") {
-    return {
-      success: false,
-      status: "❗Please make sure all fields are completed before minting.",
-    };
-  }
+export const mintNFT = async (url) => {
+  // if (url.trim() == "" || name.trim() == "" || description.trim() == "") {
+  //   return {
+  //     success: false,
+  //     status: "❗Please make sure all fields are completed before minting.",
+  //   };
+  // }
 
   //make metadata
-  const metadata = new Object();
-  metadata.name = name;
-  metadata.image = url;
-  metadata.description = description;
+  const metadata = {
+    image: url
+    // metadata.name = name;
+    // metadata.description = description;
+  }
 
   const pinataResponse = await pinJSONToIPFS(metadata);
   if (!pinataResponse.success) {

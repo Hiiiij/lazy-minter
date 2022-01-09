@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
+import axios from 'axios'
 import {
   connectWallet,
   getCurrentWalletConnected,
   mintNFT,
 } from "./util/interact.js";
-
 const Minter = (props) => {
   const [walletAddress, setWallet] = useState("");
   const [status, setStatus] = useState("");
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  // const [name, setName] = useState("");
+  // const [description, setDescription] = useState("");
   const [url, setURL] = useState("");
 
   useEffect(async () => {
@@ -27,7 +27,7 @@ const Minter = (props) => {
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
           setWallet(accounts[0]);
-          setStatus("👆🏽 Write a message in the text-field above.");
+          // setStatus("👆🏽 Write a message in the text-field above.");
         } else {
           setWallet("");
           setStatus("🦊 Connect to Metamask using the top right button.");
@@ -54,12 +54,17 @@ const Minter = (props) => {
   };
 
   const onMintPressed = async () => {
-    const { success, status } = await mintNFT(url, name, description);
+    setStatus('getting random nft')
+    const response = await axios.get('http://localhost:8000/getRandomNFT')
+    console.log(response)
+    const { secure_url } = response.data
+
+    setStatus('minting NFT...')
+
+    const { success, status } = await mintNFT(secure_url);
     setStatus(status);
     if (success) {
-      setName("");
-      setDescription("");
-      setURL("");
+      setURL(secure_url)
     }
   };
 
@@ -77,30 +82,11 @@ const Minter = (props) => {
       </button>
 
       <br></br>
+      {url && <img src={url} />}
       <h1 id="title">🧙‍♂️ Alchemy NFT Minter</h1>
       <p>
         Simply add your asset's link, name, and description, then press "Mint."
       </p>
-      <form>
-        <h2>🖼 Link to asset: </h2>
-        <input
-          type="text"
-          placeholder="e.g. https://gateway.pinata.cloud/ipfs/<hash>"
-          onChange={(event) => setURL(event.target.value)}
-        />
-        <h2>🤔 Name: </h2>
-        <input
-          type="text"
-          placeholder="e.g. My first NFT!"
-          onChange={(event) => setName(event.target.value)}
-        />
-        <h2>✍️ Description: </h2>
-        <input
-          type="text"
-          placeholder="e.g. Even cooler than cryptokitties ;)"
-          onChange={(event) => setDescription(event.target.value)}
-        />
-      </form>
       <button id="mintButton" onClick={onMintPressed}>
         Mint NFT
       </button>
