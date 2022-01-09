@@ -1,11 +1,11 @@
 const express = require('express')
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   require("dotenv").config();
 }
 
 const app = express()
-const port = 8000
+const port = process.env.PORT
 const cors = require('cors')
 const { editionSize } = require('./input/config.js')
 const cloudinary = require('cloudinary').v2;
