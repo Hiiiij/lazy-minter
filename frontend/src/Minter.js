@@ -41,7 +41,7 @@ const Minter = (props) => {
         <p>
           {" "}
           🦊{" "}
-          <a target="_blank" href={`https://metamask.io/download.html`}>
+          <a target="_blank" rel="noreferrer" href={`https://metamask.io/download.html`}>
             You must install Metamask, a virtual Ethereum wallet, in your
             browser.
           </a>
@@ -85,7 +85,7 @@ const Minter = (props) => {
       </button>
 
       <br></br>
-      {url && <img src={url} />}
+      {url && <img alt="minted nft" src={url} />}
       <h1 id="title">🧙‍♂️ Alchemy NFT Minter</h1>
       <p>
         Simply add your asset's link, name, and description, then press "Mint."
