@@ -5,6 +5,10 @@ import {
   getCurrentWalletConnected,
   mintNFT,
 } from "./util/interact.js";
+import { Button } from "./components/Button.js";
+import ImageFlasher from "./components/ImageFlasher.js";
+
+
 const Minter = (props) => {
   const [walletAddress, setWallet] = useState("");
   const [status, setStatus] = useState("");
@@ -74,16 +78,18 @@ const Minter = (props) => {
 
   return (
     <div className="Minter">
-      <button id="walletButton" onClick={connectWalletPressed}>
-        {walletAddress.length > 0 ? (
-          "Connected: " +
-          String(walletAddress).substring(0, 6) +
-          "..." +
-          String(walletAddress).substring(38)
-        ) : (
-          <span>Connect Wallet</span>
-        )}
-      </button>
+      <Button
+        onClick={connectWalletPressed}
+        btnType={'outline'}
+        text={
+          walletAddress.length > 0 ?
+            "Connected: " +
+            String(walletAddress).substring(0, 6) +
+            "..." +
+            String(walletAddress).substring(38)
+            :
+            "Connect Wallet"
+        } />
 
       <br></br>
       {url && <img alt="minted nft" src={url} />}
@@ -91,9 +97,11 @@ const Minter = (props) => {
       <p>
         Simply add your asset's link, name, and description, then press "Mint."
       </p>
-      <button id="mintButton" onClick={onMintPressed}>
-        Mint NFT
-      </button>
+      <ImageFlasher images={['https://res.cloudinary.com/daqgugk5f/image/upload/v1641987238/ynwl59gj6gtgdateob2t.png', 'https://res.cloudinary.com/daqgugk5f/image/upload/v1641984304/bvdpqso5rhhtnogez2r4.png', 'https://res.cloudinary.com/daqgugk5f/image/upload/v1641735603/wjvvtebcm9uh1ah1pltx.png']} />
+      <Button
+        onClick={onMintPressed}
+        text="Mint NFT">
+      </Button>
       <p id="status" style={{ color: "red" }}>
         {status}
       </p>
