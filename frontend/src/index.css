@@ -1,15 +1,99 @@
+/* Setting the correct mobile view  https://courses.joshwcomeau.com/css-for-js/05-responsive-css/11-viewport-units */
+
+html,
+body,
+#root {
+  --full-width: calc(100vw - var(--scrollbar-width));
+  height: 100%;
+}
+.wrapper {
+  width: var(--full-width);
+}
+
+/* const BREAKPOINTS = {
+  tabletMin: 550,
+  laptopMin: 1100,
+  desktopMin: 1500,
+}
+const QUERIES = {
+  'tabletAndUp': `(min-width: ${BREAKPOINTS.tabletMin}px)`,
+  'laptopAndUp': `(min-width: ${BREAKPOINTS.laptopMin}px)`,
+  'desktopAndUp': `(min-width: ${BREAKPOINTS.desktopMin}px)`,
+}
+
+
+
+converted to rems for a better scallability - rem-based viewports scale with the user's chosen default font size. As the font size gets bigger, the breakpoints slide up the scale.
+const BREAKPOINTS = {
+  tabletMin: 550,
+  laptopMin: 1100,
+  desktopMin: 1500,
+}
+const QUERIES = {
+  'tabletAndUp': `(min-width: ${BREAKPOINTS.tabletMin / 16}rem)`,
+  'laptopAndUp': `(min-width: ${BREAKPOINTS.laptopMin / 16}rem)`,
+  'desktopAndUp': `(min-width: ${BREAKPOINTS.desktopMin / 16}rem)`,
+}
+ */
+/* Breaking Points 0-550px — Mobile
+550-1100px — Tablet
+1100-1500px — Laptop
+1500+px — Desktop *
+ref https://courses.joshwcomeau.com/css-for-js/05-responsive-css/07-breakpoints/
+
+styled-components has a “theming system”. This allows us to access theme variables like colors and breakpoints without needing to import our constants.
+Styled Component Way: To use themes in styled-components, first we need to make it available through a ThemeProvider:
+
+import { ThemeProvider } from 'styled-components';
+import { QUERIES } from '../../constants';
+function App() {
+  return (
+     <ThemeProvider theme={{ queries: QUERIES }}>
+    /*</ThemeProvider>
+  )
+} */
+
+/* .page-wrapper {
+  width: clamp(500px, 65%, 800px);
+  max-width: 100%;
+} */
+/* clamp takes 3 values:
+
+The minimum value
+The ideal value
+The maximum value
+but it combines it into a single property value. I */
+
+/* We shouldn't think of hover events as a "big screen thing", we should think of them as a "mouse/trackpad thing"
+This is a relatively new addition to the Media Queries specification. They're called “Interaction Media Features”. They allow us to apply styles based on which input mechanism the user is using.
+
+What's the difference between "hover" and "pointer"? They actually refer to two distinct capabilities. hover is the ability for a device to move the cursor without also triggering a click/tap on the element underneath; a mouse can do this, but your finger or a stylus can't. pointer refers to the level of control the user has over the position of the cursor.
+
+Somewhat magically, browsers are able to infer which input device you're using! This is a dynamic query: if you switch from using a mouse to using a keyboard (for navigation, not for typing), the values for hover and pointer will update dynamically.
+
+another one @media (prefers-color-scheme: dark) {}
+/* 
+  body {
+  overflow-y: scroll;
+} */
+button:hover {
+  cursor: pointer;
+}
+/* hover current vs recomended */
+/* @media (hover: hover) and (pointer: fine) {
+  button:hover {
+    background-color: red;
+  }
+} */
+
 body {
-  margin: 0;
+  margin: 0 auto;
   font-family: "Sofia Pro";
-  /* color: #254cdd; */
+  color: #254cdd;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #170b37;
   color: white;
-}
-
-button:hover {
-  cursor: pointer;
 }
 
 button:active {
@@ -22,14 +106,15 @@ code {
     monospace;
 }
 
-.Minter {
-  max-width: 80vh;
-  max-height: 80vh;
+.App {
+  /* max-width: 80vh;
+  max-height: 80vh; */
   padding: 60px 100px;
   margin: 0 auto;
   text-align: left;
+  /* border: solid 1px red; */
+  /* width: clamp(500px, 65%, 800px); */
 }
-
 input {
   border-top-style: hidden;
   border-right-style: hidden;
