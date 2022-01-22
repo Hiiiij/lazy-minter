@@ -42,7 +42,7 @@ export default function ImageFlasher({ images }) {
         clearInterval(interval)
       }
     }, 2000)
-  }, [])
+  }, [images.length])
 
   // useEffect(() => {
   //   const newIndex = currentIndex + 1 < images.length ? currentIndex + 1 : 0
