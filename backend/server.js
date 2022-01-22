@@ -10,6 +10,8 @@ const cors = require('cors')
 const { editionSize } = require('./input/config.js')
 const cloudinary = require('cloudinary').v2;
 
+const folderName = 'NFTs'
+
 // min and max included 
 const randomIntFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
@@ -31,7 +33,7 @@ app.get('/', (req, res) => {
 
 app.get('/getRandomNFT', (req, res) => {
   const randomNumber = randomIntFromInterval(1, editionSize)
-  cloudinary.uploader.upload(`output/${randomNumber}.png`, function (error, result) {
+  cloudinary.uploader.upload(`output/${randomNumber}.png`, { folder: folderName }, function (error, result) {
     if (error) {
       res.status(500).send(error)
     } else {
@@ -39,6 +41,22 @@ app.get('/getRandomNFT', (req, res) => {
       res.send(result)
     }
   });
+})
+
+app.get('/getAllNFTs', (req, res) => {
+
+  cloudinary.api.resources({
+    type: 'upload',
+    prefix: folderName // add your folder
+  },
+    function (error, result) {
+      if (error) {
+        res.status(500).send(error)
+      } else {
+        console.log(result)
+        res.send(result)
+      }
+    });
 })
 
 app.listen(port, () => {
