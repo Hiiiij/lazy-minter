@@ -5,8 +5,8 @@ const ImageWrapper = styled.div`
   ${'' /* width: clamp(200px, 50%, 500px);
   border-radius: 50%;
   overflow: hidden; */}
-    width: 200px;
-  height: 200px;
+  width: clamp(50px, 100%, 120px);
+  height: 120px;
   position: relative;
   overflow: hidden;
   border-radius: 50%;

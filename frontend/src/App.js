@@ -1,22 +1,23 @@
 // import './App.css';
-import Minter from './components/Minter'
+import { Routes, Route, Link } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
 import { BREAKPOINTS, QUERIES } from './util/constans'
-import axios from 'axios'
 
 import {
   connectWallet,
-  getCurrentWalletConnected, mintNFT
+  getCurrentWalletConnected
 } from './util/interact'
 import { useState, useEffect } from 'react'
 import { Button } from './components/Button'
+import { walletNotInstalledMessage } from './components/WalletNotInstalledMessage'
+import Drops from './routes/Drops'
 const AppWrapper = styled.div`
   /* max-width: 80vh;
   max-height: 80vh; */
   height:100%;
   display:flex;
   flex-direction:column;
-  justify-content: space-around;
+  ${'' /* justify-content: space-around; */}
   padding: 60px 100px;
   margin: 0 auto;
   text-align: left;
@@ -32,34 +33,26 @@ height:3rem;
 
 const Nav = styled.nav`
 text-decoration:none;
+position: sticky;
+left: 0;
 flex: 1;
 display:flex;
 width: 100%;
 max-height: 3rem;
-justify-content:space evenly;
-display: ${prop => prop.top ? 'none' : 'initial'};
+justify-self: center;
+justify-content:center;
+display: ${prop => prop.top ? 'none' : 'flex'};
+bottom: 0;
 @media ${QUERIES.tabletAndUp} {
-    display: ${prop => prop.top ? 'initial' : 'none'}
+    display: ${prop => prop.top ? 'flex' : 'none'};
+    top: 0;
+    left: 0;
+    bottom: unset;
+    justify-content: flex-start;
   }
   ${'' /* @media ${QUERIES.desktopAndUp} {
     display: ${prop => !prop.top ? 'none' : 'initial'}
   } */}
-
-`
-
-const MinterWrapper = styled.div`
-  max-height: 80%;
-  overflow: scroll;
-  flex: 1;
-  /* Hide scrollbar for Chrome, Safari and Opera */
-&::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 
 `
 
@@ -70,22 +63,8 @@ const ConnectButtonWrapper = styled.div`
   flex: 1;
 `
 
-const MintButtonWrapper = styled.div`
-  ${'' /* display: grid;
-    place-content: center; */}
-
-  text-align: center;
-  display: flex;
-  justify-content: center;
-`
-const MintButton = styled(Button)`
-width:100%;
-  ${'' /* flex: 1; */}
-`
-
 function App() {
   const [status, setStatus] = useState('')
-  const [url, setURL] = useState('')
 
   const connectWalletPressed = async () => {
     const walletResponse = await connectWallet()
@@ -118,31 +97,7 @@ function App() {
         }
       })
     } else {
-      setStatus(
-        <p>
-          {' '}
-          🦊{' '}
-          <a target='_blank' rel='noreferrer' href='https://metamask.io/download.html'>
-            You must install Metamask, a virtual Ethereum wallet, in your
-            browser.
-          </a>
-        </p>
-      )
-    }
-  }
-  const onMintPressed = async () => {
-    setStatus('getting random nft')
-    const BACKEND_URL = process.env.NODE_ENV === 'production' ? 'https://lazyminter.herokuapp.com' : 'http://localhost:8000'
-    const response = await axios.get(`${BACKEND_URL}/getRandomNFT`)
-    console.log(response)
-    const { secure_url: secureURL } = response.data
-
-    setStatus('minting NFT...')
-
-    const { success, status: statusResponse } = await mintNFT(secureURL)
-    setStatus(statusResponse)
-    if (success) {
-      setURL(secureURL)
+      setStatus(walletNotInstalledMessage)
     }
   }
 
@@ -151,12 +106,16 @@ function App() {
       <AppWrapper>
         <Header>
           <Nav top>
-            <ul style={{ display: 'flex', listStyle: 'none', gap: '30px' }}>
-              <li>Drops</li>
-              <li>About</li>
-              <li>Community</li>
-            </ul>
+            <div style={{ display: 'flex', listStyle: 'none', gap: '30px' }}>
+              <Link to='/'>Drops</Link>
+              <Link to='/about'>About</Link>
+              <Link to='/community'>Community</Link>
+            </div>
           </Nav>
+          {/* <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="about" element={<About />} />
+          </Routes> */}
           <ConnectButtonWrapper>
             <Button
               onClick={connectWalletPressed}
@@ -172,23 +131,26 @@ function App() {
             />
           </ConnectButtonWrapper>
         </Header>
-        <MinterWrapper>
-          <Minter
-            url={url}
-          />
-        </MinterWrapper>
-        <p style={{ color: 'red', 'text-align': 'center', wordWrap: 'break-word' }}>{status}</p>
-        <MintButtonWrapper>
-          <MintButton onClick={onMintPressed}
-            text='Mint NFT'
-          />
-        </MintButtonWrapper>
+        <main style={{ flex: 1 }}>
+          <Routes style={{ display: 'flex', listStyle: 'none', gap: '30px', flex: 1 }}>
+            <Route
+              path='/' element={
+                <Drops
+                  status={status}
+                  onStatusChanged={setStatus}
+                />
+              }
+            />
+            <Route path='/about' element={<h1>About</h1>} />
+            <Route path='/community' element={<h1>COmmunity</h1>} />
+          </Routes>
+        </main>
         <Nav>
-          <ul style={{ display: 'flex', listStyle: 'none', gap: '30px', position: 'fixed' }}>
-            <li>Drops</li>
-            <li>About</li>
-            <li>Community</li>
-          </ul>
+          <div style={{ display: 'flex', listStyle: 'none', gap: '30px', justifyContent: 'center' }}>
+            <Link to='/'>Drops</Link>
+            <Link to='/about'>About</Link>
+            <Link to='/community'>Community</Link>
+          </div>
         </Nav>
       </AppWrapper>
     </ThemeProvider>
