@@ -21,7 +21,8 @@ const AppWrapper = styled.div`
   padding: 60px 100px;
   margin: 0 auto;
   text-align: left;
-  width: clamp(300px, 70%, 600px);
+  width: clamp(calc(300/16)rem, 70%, calc(1200/16)rem);
+ 
   padding: min(32px, 5vw);
 `
 
@@ -59,7 +60,7 @@ bottom: 0;
 const ConnectButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  align-self: flex-end;
+  align-self:  baseline;
   flex: 1;
 `
 
