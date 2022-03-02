@@ -1,20 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import { THEME } from '../util/constans'
 
-const H1 = styled.h1`
-font-size: calc(40/16)rem;
-color:white;
+
+const StyledParagraph = styled.p`
+font-size: ${THEME.fontSize.p.small};
+line-height: 1.5rem;
+margin-bottom: 2rem;
 `
 
-
-export default function Header({ text }) {
-  // const props = { text: 'hellp'}
-  // 1. const { text } = props
-  // 2. const text = props.text
-  // 3. const text = props['text']
+export default function Paragraph({ text, className }) {
   return (
-    <H1>
-      {text}
-    </H1>
+    <StyledParagraph className={className}>{text}</StyledParagraph>
   )
 }

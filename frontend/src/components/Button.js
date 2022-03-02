@@ -28,7 +28,12 @@ border-outline: white;
   padding:24px, 32px;
   background-color:white;
   font-weight:600;
-  max-width:clamp(3rem,50rem,75%)
+  &:active {
+    background: linear-gradient(to right, #DF25E2, #33D4DF, #413EDC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  ${'' /* max-width:clamp(3rem,50rem,75%) */}
 `
 
 
@@ -57,5 +62,3 @@ border-outline: white;
 // }
 
 export const Button = ({ onClick, text, btnType, className }) => (btnType === 'outline') ? <OutlineButton onClick={onClick} className={className}> {text}</OutlineButton> : <CTAButton onClick={onClick} className={className}> {text} </CTAButton>
-
-

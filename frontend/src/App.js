@@ -1,7 +1,7 @@
 // import './App.css';
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, NavLink } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
-import { BREAKPOINTS, QUERIES } from './util/constans'
+import { THEME } from './util/constans'
 
 import {
   connectWallet,
@@ -11,14 +11,14 @@ import { useState, useEffect } from 'react'
 import { Button } from './components/Button'
 import { walletNotInstalledMessage } from './components/WalletNotInstalledMessage'
 import Drops from './routes/Drops'
+import About from './routes/About'
+import NFTArt from './routes/NFTArt'
+
 const AppWrapper = styled.div`
-  /* max-width: 80vh;
-  max-height: 80vh; */
-  height:100%;
+  min-height:100%;
   display:flex;
   flex-direction:column;
   ${'' /* justify-content: space-around; */}
-  padding: 60px 100px;
   margin: 0 auto;
   text-align: left;
   width: clamp(calc(300/16)rem, 70%, calc(1200/16)rem);
@@ -32,8 +32,27 @@ position:sticky;
 height:3rem;
 `
 
+const StyledLink = styled(NavLink)`
+    text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+    &.active {
+      color:yellow;
+      ${'' /* color: yellow; */}
+      ${'' /* background: linear-gradient(to right, #DF25E2, #33D4DF, #413EDC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */}
+    }
+    &:hover  {
+      color: pink;
+    }
+`
+
 const Nav = styled.nav`
 text-decoration:none;
+font-weight :${THEME.fontWeight.sofiaSemiBold};
 position: sticky;
 left: 0;
 flex: 1;
@@ -44,17 +63,19 @@ justify-self: center;
 justify-content:center;
 display: ${prop => prop.top ? 'none' : 'flex'};
 bottom: 0;
-@media ${QUERIES.tabletAndUp} {
+@media ${THEME.queries.tabletAndUp} {
     display: ${prop => prop.top ? 'flex' : 'none'};
     top: 0;
     left: 0;
     bottom: unset;
     justify-content: flex-start;
+    ${'' /* font-size :${THEME.fontSize.p.medium}; */}
+    font-weight :${THEME.fontWeight.sofiaSemiBold};
+
   }
   ${'' /* @media ${QUERIES.desktopAndUp} {
     display: ${prop => !prop.top ? 'none' : 'initial'}
   } */}
-
 `
 
 const ConnectButtonWrapper = styled.div`
@@ -62,6 +83,14 @@ const ConnectButtonWrapper = styled.div`
   justify-content: flex-end;
   align-self:  baseline;
   flex: 1;
+  @media ${THEME.queries.tabletAndUp} {e
+    max-width: 8rem;
+  }
+   @media ${THEME.queries.desktopAndUp} {
+    max-width: revert;
+  }
+  ${'' /* flex: 1; */}
+
 `
 
 function App() {
@@ -103,14 +132,14 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={{ queries: QUERIES, breakpoints: BREAKPOINTS }}>
+    <ThemeProvider theme={THEME}>
       <AppWrapper>
         <Header>
           <Nav top>
             <div style={{ display: 'flex', listStyle: 'none', gap: '30px' }}>
-              <Link to='/'>Drops</Link>
-              <Link to='/about'>About</Link>
-              <Link to='/community'>Community</Link>
+              <StyledLink to='/'>Drops</StyledLink>
+              <StyledLink to='/about'>About</StyledLink>
+              <StyledLink to='/nft-art'>Nft Art</StyledLink>
             </div>
           </Nav>
           {/* <Routes>
@@ -132,8 +161,8 @@ function App() {
             />
           </ConnectButtonWrapper>
         </Header>
-        <main style={{ flex: 1 }}>
-          <Routes style={{ display: 'flex', listStyle: 'none', gap: '30px', flex: 1 }}>
+        <main style={{ flex: 1, display: 'flex', height: '100%', justifyContent: 'center' }}>
+          <Routes style={{ display: 'flex', listStyle: 'none', gap: '30px', flex: 1, justifyContent: 'space-between' }}>
             <Route
               path='/' element={
                 <Drops
@@ -142,15 +171,23 @@ function App() {
                 />
               }
             />
-            <Route path='/about' element={<h1>About</h1>} />
-            <Route path='/community' element={<h1>COmmunity</h1>} />
+            <Route
+              path='/about' element={
+                <About />
+              }
+            />
+            <Route
+              path='/nft-art' element={
+                <NFTArt />
+              }
+            />
           </Routes>
         </main>
         <Nav>
           <div style={{ display: 'flex', listStyle: 'none', gap: '30px', justifyContent: 'center' }}>
-            <Link to='/'>Drops</Link>
-            <Link to='/about'>About</Link>
-            <Link to='/community'>Community</Link>
+            <StyledLink to='/'>Drops</StyledLink>
+            <StyledLink to='/about'>About</StyledLink>
+            <StyledLink to='/nft-art'>Nft Art</StyledLink>
           </div>
         </Nav>
       </AppWrapper>

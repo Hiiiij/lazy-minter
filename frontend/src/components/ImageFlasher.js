@@ -10,6 +10,8 @@ const ImageWrapper = styled.div`
   position: relative;
   overflow: hidden;
   border-radius: 50%;
+   margin-top:2rem;
+  margin-bottom:2rem;
 `
 const Image = styled.img`
 ${'' /*
@@ -17,11 +19,11 @@ ${'' /*
   width: 100%;
   object-fit: contain; */}
    display: inline;
-  margin: 0 auto;
-    object-fit: cover;
-
+   margin: 0 auto;
+  object-fit: cover;
   height: 100%;
   width: auto;
+ 
 `
 
 // const preloadImage = url => {
