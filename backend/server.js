@@ -1,18 +1,18 @@
 const express = require('express')
 
 if (process.env.NODE_ENV !== 'production') {
-  require("dotenv").config();
+  require('dotenv').config()
 }
 
 const app = express()
 const port = process.env.PORT || 8000
 const cors = require('cors')
 const { editionSize } = require('./input/config.js')
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary').v2
 
 const folderName = 'NFTs'
 
-// min and max included 
+// min and max included
 const randomIntFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -25,7 +25,6 @@ const randomIntFromInterval = (min, max) => {
 // });
 
 app.use(cors())
-
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -40,27 +39,24 @@ app.get('/getRandomNFT', (req, res) => {
       console.log(result)
       res.send(result)
     }
-  });
+  })
 })
 
 app.get('/getAllNFTs', (req, res) => {
-
   cloudinary.api.resources({
     type: 'upload',
     prefix: folderName // add your folder
   },
-    function (error, result) {
-      if (error) {
-        res.status(500).send(error)
-      } else {
-        console.log(result)
-        res.send(result)
-      }
-    });
+  function (error, result) {
+    if (error) {
+      res.status(500).send(error)
+    } else {
+      console.log(result)
+      res.send(result)
+    }
+  })
 })
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
-
-

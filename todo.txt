@@ -1,0 +1,19 @@
+GlobalComponents
+a) layout container responsivness [bigger left/right padding ]
+b) Mint Button responsive sizing 
+c) bottom links bottom spacing 
+
+Pages
+
+Drops 
+a) Adding content
+b) display of the random artwork 
+
+About
+a)layout
+
+NFT artwork
+a) fluid grid items 
+b) display of the chosen artwork 
+
+	
