@@ -1,11 +1,8 @@
-import axios from 'axios'
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Button } from '../components/Button'
-import Minter from '../components/Minter'
-import { mintNFT } from '../util/interact'
 import { useNavigate } from 'react-router-dom'
-import { BACKEND_URL, QUERIES } from '../util/constans'
+import { BACKEND_URL } from '../util/constans'
 import Header from '../components/Header'
 
 const Metadata = styled.div`

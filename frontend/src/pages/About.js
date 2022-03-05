@@ -1,8 +1,4 @@
-import axios from 'axios'
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { QUERIES } from '../util/constans'
-
+import React from 'react'
 
 export default function About() {
   return (
