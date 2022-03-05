@@ -28,7 +28,6 @@ const StyledGrid = styled.div`
     gap: 32px;
     grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
     ${'' /* background:lightgrey; */}
-    border: solid;
     flex: 1;
   `
 const Tile = styled.div`
