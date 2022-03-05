@@ -6,6 +6,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express()
 const port = process.env.PORT || 8000
+app.use(express.static('output'));
+
 const cors = require('cors')
 const { editionSize } = require('./input/config.js')
 const cloudinary = require('cloudinary').v2
@@ -47,14 +49,14 @@ app.get('/getAllNFTs', (req, res) => {
     type: 'upload',
     prefix: folderName // add your folder
   },
-  function (error, result) {
-    if (error) {
-      res.status(500).send(error)
-    } else {
-      console.log(result)
-      res.send(result)
-    }
-  })
+    function (error, result) {
+      if (error) {
+        res.status(500).send(error)
+      } else {
+        console.log(result)
+        res.send(result)
+      }
+    })
 })
 
 app.listen(port, () => {

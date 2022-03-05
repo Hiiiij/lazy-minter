@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Button } from '../components/Button'
 import Minter from '../components/Minter'
 import { mintNFT } from '../util/interact'
-import { THEME } from '../util/constans'
+import { BACKEND_URL, THEME } from '../util/constans'
 
 const MinterWrapper = styled.div`
 ${'' /* border: solid 1px red; */}
@@ -72,10 +72,7 @@ export default function Drops({ status, onStatusChanged }) {
   const onMintPressed = async () => {
     if (mintButtonText === 'Mint NFT') {
       onStatusChanged('getting random nft')
-      const BACKEND_URL =
-        process.env.NODE_ENV === 'production'
-          ? 'https://lazyminter.herokuapp.com'
-          : 'http://localhost:8000'
+
       const response = await axios.get(`${BACKEND_URL}/getRandomNFT`)
       console.log(response)
       const { secure_url: secureURL } = response.data

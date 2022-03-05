@@ -30,7 +30,7 @@ ${'' /*
 //   return new window.Image().src = url
 // }
 
-export default function ImageFlasher({ images }) {
+export default function ImageFlasher ({ images }) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {

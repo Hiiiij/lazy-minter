@@ -35,6 +35,11 @@ const FONTSIZE = {
 
 }
 
+export const BACKEND_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://lazyminter.herokuapp.com'
+    : 'http://localhost:8000'
+
 export const THEME = {
   fontWeight: FONTWEIGHTS,
   queries: QUERIES,

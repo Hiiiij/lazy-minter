@@ -12,10 +12,6 @@ const Wrapper = styled.div`
   width:100%;  
 `
 
-const StyledHeader = styled(Header)`
-  margin-bottom: 18px;
-`
-
 const StyledSubheader = styled(Subheader)`
   margin-bottom: 8px;
 `
@@ -77,7 +73,7 @@ You have a chance to get 1 of 1000 unique collection pieces revealed to you afte
       {isSuccess && <ImageWrapper><img style={{ width: '100%' }} alt='minted nft' src={url} /></ImageWrapper>}
       {!isSuccess &&
         <>
-          <StyledHeader text={title} />
+          <Header text={title} />
           <StyledSubheader mode='emphasized' size='small' text='You are welcome to join' />
           <StyledSubheader text='Fan Based Secret Drop' />
           <ImageFlasher images={['https://res.cloudinary.com/daqgugk5f/image/upload/v1641987238/ynwl59gj6gtgdateob2t.png', 'https://res.cloudinary.com/daqgugk5f/image/upload/v1641984304/bvdpqso5rhhtnogez2r4.png', 'https://res.cloudinary.com/daqgugk5f/image/upload/v1641735603/wjvvtebcm9uh1ah1pltx.png']} />

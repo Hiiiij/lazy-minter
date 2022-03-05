@@ -10,9 +10,10 @@ import {
 import { useState, useEffect } from 'react'
 import { Button } from './components/Button'
 import { walletNotInstalledMessage } from './components/WalletNotInstalledMessage'
-import Drops from './routes/Drops'
-import About from './routes/About'
-import NFTArt from './routes/NFTArt'
+import Drops from './pages/Drops'
+import About from './pages/About'
+import NFTArt from './pages/NFTArt'
+import ArtDetails from './pages/ArtDetails'
 
 const AppWrapper = styled.div`
   min-height:100%;
@@ -179,6 +180,11 @@ function App() {
             <Route
               path='/nft-art' element={
                 <NFTArt />
+              }
+            />
+            <Route
+              path='/details/:id' element={
+                <ArtDetails />
               }
             />
           </Routes>
